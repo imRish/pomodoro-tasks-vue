@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pomotasks</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.0/animate.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <div class="header" id="pomoApp">
+        <h2 class="cover-heading">52 / 17 Productivity Timer</h2>
+        <div id="tasks-icon" @click="toggleTasksView">
+            <i class="fa fa-tasks"></i>
+        </div>
+        <div id="clock-view">
+            <div class="pBox" @click="start" title="Click to start">
+                <div class="timer">{{ stateMsg }}</br>{{ display }}</div>
+                <div class="hover-play" v-bind:class="{ 'hover-playing': state}">
+                    <i class="fa fa-play-circle"></i>
+                </div>
+            </div>
+            <div class="timer-ctrl">
+                <label>Session: &nbsp;
+                    <input type="text" v-model="sessionCtrl" maxlength="2" class="timer-box-input">
+                </label>
+                <input type="range" v-model="sessionCtrl" min="0" max="60" class="timer-slider">
+                <label>Break: &nbsp;
+                    <input type="text" v-model="breakCtrl" maxlength="2" class="timer-box-input">
+                </label>
+                <input type="range" v-model="breakCtrl" min="0" max="60" class="timer-slider">
+                <button type="button" class="btn btn-danger reset-btn" @click="reset">Reset</button>
+            </div>
+        </div>
+
+        <div id="tasks-view">
+            <div>
+                <div>
+                    <span class="task-heading">Tasks</span>
+                </div>
+                <div class="new-task">
+                    <span class="input-area">
+                        <input type="text" placeholder="Add new task" v-model="newTask">
+                    </span>
+                    <span class="float-right add-btn" v-if="newTask.length > 0" @click="addNewTask">
+                        <i class="fa fa-2x fa-plus"></i>
+                    </span>
+                </div>
+                <div v-for="task,index in tasks" class="single-task">
+                    <div>
+                        <span class="check-area">
+                            <label @click="completeTask(task.id)" class="label-container"><h3>{{ task.title }}</h3>
+                                <input type="checkbox" :checked="task.checked">
+                                <span class="checkmark"></span>
+                            </label>
+                        </span>
+                        <span>
+                            <!-- <i class="fa fa-2x fa-pencil"></i> -->
+                            <i class="fa fa-2x fa-trash" @click="removeTask(index)"></i>
+                        </span>
+                    </div>
+                    <!-- <p>More contenen herecontenen herecontenen here contenen here contenen here contenen here contenen here</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
